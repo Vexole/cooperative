@@ -3,7 +3,7 @@
          <div class="line">
             <div class="box">
                <div class="s-6 l-2">
-                  <img src="img/logo.png">
+                  <img src="/img/logo.png">
                </div>
             </div>
          </div>
@@ -15,12 +15,18 @@
                   <ul class="chevron">
 
                   @foreach($menus as $menu)
-                     <li><a>{{$menu->menu_name}}</a>
-                    
+                    @if($menu->menu_name == "Home")
+                     <li><a href="/">{{$menu->menu_name}}</a>
+                    @elseif($menu->menu_name == "Contact" || $menu->menu_name == "About" || $menu->menu_name == "News")
+                     <li><a href="/{{strtolower($menu->menu_name)}}">{{$menu->menu_name}}</a>
+                    @else
+                     <li><a href="/{{strtolower($menu->menu_name)}}s">{{$menu->menu_name}}</a>
+                    @endif
+
                     @if(count($menu->submenus))
                        <ul>
                            @foreach($menu->submenus as $submenu)
-                              <li><a>{{$submenu->submenu_name}}</a></li>
+                              <li><a href="/{{$submenu->submenu_name}}">{{$submenu->submenu_name}}</a></li>
                            @endforeach
                         </ul>
                     @endif

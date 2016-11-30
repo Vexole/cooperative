@@ -2,14 +2,8 @@
 
 @section('container')
 	<section>
-         <!-- CAROUSEL -->  
-         <div class="line">
-            <div id="owl-demo" class="owl-carousel owl-theme  margin-bottom">
-               <div class="item"><img src="img/940x380.jpg" alt=""></div>
-               <div class="item"><img src="img/940x380-2.jpg" alt=""></div>
-               <div class="item"><img src="img/940x380-3.jpg" alt=""></div>
-            </div>
-         </div>
+        @include('partials._carousel')
+
          <!-- HOME PAGE BLOCK -->      
          <div class="line">
             <div class="margin">
@@ -57,30 +51,28 @@
             </div>
          </div>
 
+         @include('partials._imagecarousel')
 
-         <!-- GALLERY CAROUSEL -->
-         <div class="line">
-            <h2>Gallery</h2>
-            <div id="owl-demo2" class="owl-carousel margin-bottom">
-               <div class="item"><img src="img/330x190.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190-2.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190-3.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190-2.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190-3.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190-2.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190-3.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190-2.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190-3.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190-2.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190-3.jpg" alt=""></div>
-               <div class="item"><img src="img/330x190.jpg" alt=""></div>
-            </div>
-         </div>
-
-   
       </section>
+
+             <!-- ASIDE NAV AND CONTENT -->
+         <div class="line">
+            <div class="box margin-bottom">
+               <div class="margin">
+                  <!-- CONTENT -->
+                  <article class="sidenav s-12 m-7 l-8">
+                     <h1>Content</h1>
+                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet 
+                        dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit 
+                        lobortis nisl ut aliquip ex ea commodo consequat.
+                     </p>
+                     <h3>Sub Header</h3>
+                     <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore 
+                        eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril 
+                        delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue 
+                        nihil imperdiet doming id quod mazim placerat facer possim assum. 
+                     </p>
+                  </article>
+                  <!-- ASIDE NAV -->
+                  @include('partials._sidenav')
       @endsection
