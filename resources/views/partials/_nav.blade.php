@@ -1,9 +1,10 @@
 
 <header>
          <div class="line">
+          @foreach($overalls as $overall)
             <div class="box">
-               <div class="s-6 l-2">
-                  <img src="/img/logo.png">
+               <div class="s-12 l-12">
+                  <img src="/uploads/image/{{$overall->logo_name}}">
                </div>
             </div>
          </div>
@@ -37,8 +38,9 @@
                   </ul>
                </div>
                <div class="hide-s hide-m l-2">
-                  <i class="icon-facebook_circle icon2x right padding"></i>
+                  <a href="{{$overall->facebook_link}}"><i class="icon-facebook_circle icon2x right padding"></i></a>
                </div>
+            @endforeach
             </nav>
          </div>
       </header>

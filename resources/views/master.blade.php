@@ -6,6 +6,10 @@
 
     @yield('container')
 
+    @yield('script')
+
+@include('partials._hotlinks')
+
 @include('partials._foot')                                                                 
      
 @include('partials._script')

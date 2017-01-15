@@ -8,18 +8,21 @@
       .sidenav{
          float: right;
       }
-</style>
 
-@if(Auth::guest())
-<style type="text/css">
-body{
-      background: #e3e3e3;     
-} 
+    body{
+		@foreach ($themes as $theme)
+   			background: {{$theme->backgroundcolor}};  
+    	@endforeach   
+	} 
+
+	.box{
+		@foreach ($themes as $theme)
+   			background: {{$theme->boxcolor}};  
+    	@endforeach
+	}
+
+  hr{
+    margin-top:14px;
+    margin-bottom:24px;
+  }
 </style>
-@else
-	<style type="text/css">
-body{
-      background: red;     
-} 
-</style>
-@endif

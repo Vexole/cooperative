@@ -1,6 +1,9 @@
 <?php
 
 return [
+    
+    'fileDestinationPath' => 'file',
+    'imageDestinationPath' => 'image',
 
     /*
     |--------------------------------------------------------------------------

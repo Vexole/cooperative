@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSchemesTable extends Migration
+class CreateOverallsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class CreateSchemesTable extends Migration
      */
     public function up()
     {
-        Schema::create('schemes', function (Blueprint $table) {
+        Schema::create('overalls', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('credit');
+            $table->string('company');
+            $table->string('year');
+            $table->string('logo_name');
+            $table->string('facebook_link');
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class CreateSchemesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schemes');
+        Schema::dropIfExists('overalls');
     }
 }

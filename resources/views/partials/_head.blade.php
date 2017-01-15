@@ -3,7 +3,11 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Luniva Cooperative</title>
+      <title>
+      	@foreach($overalls as $overall)
+       {{$overall->company}}
+        @endforeach
+    </title>
    
       @include('partials._style')
         

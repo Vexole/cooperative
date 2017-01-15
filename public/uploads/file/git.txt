@@ -1,0 +1,146 @@
+-> List files
+	>>	ls -la / filename(optional)
+
+-> Current Directory
+	>>	pwd
+
+-> Change directory
+	>>	cd e:
+
+-> Help
+	>>	git log help
+
+-> Initialization
+	>>	git init
+
+-> Version
+	>>	git version
+
+-> Add Changes
+	>>	git add .(. -> this directory)
+
+-> Commit Changes to the repository
+	>>	git commit -m "Initial Commit" (-m -> message)
+
+-> Commit Message
+	>>	present tense
+	>>	"[css,js]", "bugfix: ", "#38405 - " (track number)
+
+-> Commit Log
+	>> git log
+	>> git log -n 5 (limits number of commits)
+	>> git log --(since/until)=2016-05-15
+	>> git log --author="Bhupesh"
+	>> git log --grep="Init"
+
+-> Architecture
+	-> Three tree architecture
+		i. Repository (Changes Commited)
+		ii. Staging Index (Add files and Ready for Commit)
+		iii. Working (Your PC)
+
+-> Git generates a checksum for each change setusing SHA-1 hash algorithm
+-> It is 40 characters long and consists of hexadecimal string
+
+-> Status between three different trees
+	>> git status
+
+-> Edit Files
+	>> git status
+	>> git add filename
+	>> git commit -m "Made changes to the files"
+
+-> View Changes
+	>> git diff
+
+-> Delete Files and Keep Track of Changes
+	>> git rm filename (if deleted from explorer)
+	>> git commit -m "Deleted"
+
+	>> git rm filename
+	>> git commit -m "Remove the file"
+
+-> Moving and Renaming Files
+	>> git add newfile
+	>> git rm oldfile
+	>> git commit -m "Renamed"
+
+	>> git mv first.txt second.txt
+	>> git status
+	>> git commit -m "Rename and Move is similar"
+
+	>> git mv filename directory/filename
+	>> git commit -m "reorganization"
+
+-> Undo Changes (Repository Tree)
+	>> git checkout -- filename (current branch) 
+
+-> Undo Changes (Staging Tree)
+	>> git reset HEAD filename
+
+-> Undo Commits
+	>> git addfilename
+	>> git -- amend -m "Undoing"
+
+-> Revert
+	>> git revert SHA-1
+
+-> Undo Multiple Commmits
+	>> git reset
+		-> soft : does not change staging index or working directory
+		-> mixed(default): changes staging index but not working directory
+		-> hard : changes staging index and working directory
+
+	>> git reset --soft SHA-1(HEAD)
+	>> git diff --staged
+	>> git commit
+
+	>> git reset --mixed SHA-1
+
+	>> git reset --hard SHA-1
+
+-> Ignoring Files
+	-> project/.gitignore
+	-> *.php (ignore)
+	-> !index.php (track it)
+
+	>> nano .gitignore
+
+-> Remove Untracked Files
+	>> git clean -n
+	>> git clean -f (force) 
+
+-> Ignore files Globally
+	>> git config --global core.excludesfile `/.gitignore_global
+
+-> Track Empty Directories 
+	-> Needs at least one file (use .gitkeep)
+
+-> Creating Branch
+	>> git branch
+	>> git branch branch_name
+	>> cat .git/HEAD
+
+-> Switching Branches
+	>> git checkout branch_name
+
+-> Comparing Branches
+	>> git diff branch1..branch2 
+	>> git branch --merged (shows which contains all files)
+
+-> Renaming Branches
+	>> git branch -m filename new_filename
+
+-> Deleteing Branch
+	>> git branch -d/--delete(-D -> force) branch
+
+-> Merging Branch
+	>> git merge branch_name (be in master git checkout master)
+
+-> Connecting to GitHub
+	>> git remote add origin https://github.com/Vexole/first_project.git
+
+-> Cloning from Repository
+	>> git clone http address
+
+>> git push -u alias branch

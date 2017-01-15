@@ -13,20 +13,27 @@
 @endsection
 
 <div class="s-12 m-5 l-4 margin-bottom" >
-    <div class="box"  style="height:400px;">
-        <h1>Schemes</h1>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+    <div class="box"  style="height:320px;">
+        <h3>Schemes</h3>
+            <table>
+        @foreach($schemes as $scheme)  
+          <tr>
+            <td><a href="{{route('schemes.show', $scheme->id)}}">{{$scheme->scheme_name}}</a></td>
+          </tr>
+        @endforeach       
+      </table><br>
+      <center><a href="{{route('schemes.index')}}">View All</a></center>
     </div>
 
-    <div class="box"  style="height:400px;">
-        <h1>Notices</h1>
+    <div class="box"  style="height:320px;">
+        <h3>Notices</h3>
             <table>
 				@foreach($notices as $notice)  
 					<tr>
 						<td><a href="{{route('notices.show', $notice->id)}}">{{$notice->notice_title}}</a></td>
 					</tr>
 				@endforeach       
-			</table>
-    </div>
-    
+			</table><br>
+      <center><a href="{{route('notices.index')}}">View All</a></center>
+    </div>    
 </div>

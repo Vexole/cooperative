@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\News;
-
 use App\Menu;
-
 use App\Notice;
+use App\Scheme;
+use App\Quicklink;
+use App\Theme;
+use App\Overall;
+use App\Download;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -24,11 +27,16 @@ class NewsController extends Controller
 
     public function index()
     {
+        $quicklinks = Quicklink::orderBy('priority', 'asc')->take(5)->get();;
         $menus = Menu::all();
-        $notices = Notice::orderBy('id', 'desc')->take(5)->get();
+        $overalls = Overall::all();
+        $downloads = Download::orderBy('id','asc')->take(5)->get();
+        $schemes = Scheme::orderBy('id', 'desc')->take(4)->get();
+        $themes = Theme::all();
+        $notices = Notice::orderBy('id', 'desc')->take(4)->get();
         if(Auth::guest()){
             $news = News::orderBy('id', 'desc')->paginate(5);
-            return view('/news.news')->withNews($news)->withMenus($menus)->withNotices($notices);
+            return view('/news.news')->withOveralls($overalls)->withNews($news)->withQuicklinks($quicklinks)->withMenus($menus)->withNotices($notices)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
         }else{
             $news = News::all();
             return view('/news.index')->withNews($news);
@@ -77,10 +85,15 @@ class NewsController extends Controller
      */
     public function show($id)
     {
+        $quicklinks = Quicklink::orderBy('priority', 'asc')->take(5)->get();;
+        $downloads = Download::orderBy('id','asc')->take(5)->get();
+        $schemes = Scheme::orderBy('id', 'desc')->take(4)->get();
+        $themes = Theme::all();
+        $overalls = Overall::all();
         $menus = Menu::all();
         $new = News::find($id);
-        $notices = Notice::orderBy('id', 'desc')->take(5)->get();
-        return view('news.show')->withNew($new)->withMenus($menus)->withNotices($notices);
+        $notices = Notice::orderBy('id', 'desc')->take(4)->get();
+        return view('news.show')->withOveralls($overalls)->withNew($new)->withMenus($menus)->withNotices($notices)->withQuicklinks($quicklinks)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
     }
 
     /**

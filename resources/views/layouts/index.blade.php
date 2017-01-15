@@ -1,55 +1,69 @@
 @extends('master')
 
+@section('style')
+
+   <link rel="stylesheet" href="/css/animate.css"> 
+   <link rel="stylesheet" href="/css/font-awesome.css"> 
+
+@endsection
+
 @section('container')
 	<section>
         @include('partials._carousel')
 
-         <!-- HOME PAGE BLOCK -->      
+
+         <!-- HOME PAGE BLOCK -->  
          <div class="line">
+               <h2>Services</h2>    
             <div class="margin">
-               <div class="s-12 m-6 l-4 margin-bottom">
-                  <div class="box">
-                     <h2>About</h2>
-                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+
+               @foreach ($services as $service)
+                  <div class="s-12 m-6 l-6 margin-bottom">
+                     <div class="box" style="height:480px">
+                        <h4>{{$service->type}}</h4>
+
+                        <table>
+                           @foreach($service->schemes as $scheme)
+                              <tr>
+                                 <td><a href="{{route('schemes.show', $scheme->id)}}">{{$scheme->scheme_name}}</a></td>
+                              </tr>
+                           @endforeach
+                        </table> 
+                     </div>
                   </div>
-               </div>
-               <div class="s-12 m-6 l-4 margin-bottom">
-                  <div class="box">
-                     <h2>Company</h2>
-                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                  </div>
-               </div>
-               <div class="s-12 m-12 l-4 margin-bottom">
-                  <div class="box">
-                     <h2>Services</h2>
-                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                  </div>
-               </div>
+               @endforeach
+
             </div>
          </div>
 
-         <div class="line">
+
+<br>
+
+        <div class="line">
+               <h2><center>Some Words</center></h2>    
             <div class="margin">
-               <div class="s-12 m-6 l-4 margin-bottom">
-                  <div class="box">
-                     <h2>About</h2>
-                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+               
+               @foreach ($sayings as $saying)
+                  <div class="s-12 m-6 l-6 margin-bottom">
+                     <div class="box">
+                        <table height="200px;" style="border:none;">
+                           <td width="25%"> 
+                              <img src="/uploads/image/{{$saying->image_name}}"/>
+                              <p><b>{{$saying->name}}</b></p>
+                              <small>{{$saying->rank}}</small>
+                           </td>
+                           <td>
+                              <h5>"{{$saying->quotation}}"</h5>
+                            </td>
+                        </table>
+                     </div>
                   </div>
-               </div>
-               <div class="s-12 m-6 l-4 margin-bottom">
-                  <div class="box">
-                     <h2>Company</h2>
-                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                  </div>
-               </div>
-               <div class="s-12 m-12 l-4 margin-bottom">
-                  <div class="box">
-                     <h2>Services</h2>
-                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                  </div>
-               </div>
+               @endforeach
+   
             </div>
          </div>
+
+
 
          @include('partials._imagecarousel')
 
@@ -75,4 +89,10 @@
                   </article>
                   <!-- ASIDE NAV -->
                   @include('partials._sidenav')
+      @endsection
+
+      @section('script')
+
+      <script type="text/javascript" src="/js/wow.js"></script>
+
       @endsection
