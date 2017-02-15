@@ -11,6 +11,7 @@ use App\Scheme;
 use App\Quicklink;
 use App\Theme;
 use App\Overall;
+use App\Category;
 use App\Download;
 
 use Illuminate\Support\Facades\Auth;
@@ -33,10 +34,11 @@ class NewsController extends Controller
         $downloads = Download::orderBy('id','asc')->take(5)->get();
         $schemes = Scheme::orderBy('id', 'desc')->take(4)->get();
         $themes = Theme::all();
+        $categories = Category::all();
         $notices = Notice::orderBy('id', 'desc')->take(4)->get();
         if(Auth::guest()){
             $news = News::orderBy('id', 'desc')->paginate(5);
-            return view('/news.news')->withOveralls($overalls)->withNews($news)->withQuicklinks($quicklinks)->withMenus($menus)->withNotices($notices)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
+            return view('/news.news')->withCategories($categories)->withOveralls($overalls)->withNews($news)->withQuicklinks($quicklinks)->withMenus($menus)->withNotices($notices)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
         }else{
             $news = News::all();
             return view('/news.index')->withNews($news);
@@ -91,9 +93,10 @@ class NewsController extends Controller
         $themes = Theme::all();
         $overalls = Overall::all();
         $menus = Menu::all();
+        $categories = Category::all();
         $new = News::find($id);
         $notices = Notice::orderBy('id', 'desc')->take(4)->get();
-        return view('news.show')->withOveralls($overalls)->withNew($new)->withMenus($menus)->withNotices($notices)->withQuicklinks($quicklinks)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
+        return view('news.show')->withCategories($categories)->withOveralls($overalls)->withNew($new)->withMenus($menus)->withNotices($notices)->withQuicklinks($quicklinks)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
     }
 
     /**

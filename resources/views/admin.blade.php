@@ -17,7 +17,10 @@
             <li role="presentation" class="{{ Request::is('contacts') ? "active":""}}"><a href="/contacts">Contact</a></li>
             <li role="presentation" class="{{ Request::is('quicklinks') ? "active":""}}"><a href="/quicklinks">Quicklinks</a></li>
             <li role="presentation" class="{{ Request::is('overalls') ? "active":""}}"><a href="/overalls">Overalls</a></li>
-   	        <li role="presentation" class="{{ Request::is('downloads') ? "active":""}}"><a href="/downloads">Downloads</a></li>
+            <li role="presentation" class="{{ Request::is('downloads') ? "active":""}}"><a href="/downloads">Downloads</a></li>
+            <li role="presentation" class="{{ Request::is('abouts') ? "active":""}}"><a href="/abouts">About</a></li>
+            <li role="presentation" class="{{ Request::is('teammembers') ? "active":""}}"><a href="/teammembers">Team Members</a></li>
+   	        <li role="presentation" class="{{ Request::is('boardmembers') ? "active":""}}"><a href="/boardmembers">Board Members</a></li>
         </ul>
     </div>
 </div>

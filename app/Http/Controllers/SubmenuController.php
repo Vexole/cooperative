@@ -10,6 +10,8 @@ use App\Submenu;
 
 use App\Menu;
 
+use App\Category;
+
 class SubmenuController extends Controller
 {
     public function __construct(){
@@ -59,8 +61,10 @@ class SubmenuController extends Controller
         }
 
         $this->validate($request,[
-            'submenu_name' => 'required',
-            'menu_name' => 'required'
+            'submenu_name' => 'required|min:3|unique:submenus,submenu_name',
+            'menu_name' => 'required',
+            'body_up' => "required",
+            'body_down' => "required"
             ]);
 
         $queryMenus = Menu::where('menu_name', $list[$request->menu_name])->get();
@@ -73,6 +77,13 @@ class SubmenuController extends Controller
         $submenu->submenu_name = $request->submenu_name;
         $submenu->menu_id = $menu_id;
         $submenu->save();
+
+        $category = new Category;
+        $category->title = $request->submenu_name;
+        $category->body_up = $request->body_up;
+        $category->body_down = $request->body_down;
+        $category->sub = 1;
+        $category->save();
 
         Session::flash('success', 'Sub Menu successfully added!');
         return redirect()->route('submenus.index');
@@ -169,6 +180,10 @@ class SubmenuController extends Controller
     public function destroy($id)
     {
         $submenu = Submenu::find($id);
+        $category = Category::where([['title', $submenu->submenu_name], ['sub', 1]])->take(1)->get();
+        foreach($category as $cat){
+                $cat->delete();
+            }
         $submenu->delete();
         Session::flash('success', "Sub menu successfully deleted");
         return redirect()->route('submenus.index');

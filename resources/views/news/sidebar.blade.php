@@ -13,8 +13,9 @@
 @endsection
 
 <div class="s-12 m-5 l-4 margin-bottom" >
-    <div class="box"  style="height:320px;">
+    <div class="box"  style="height:500px;">
         <h3>Schemes</h3>
+        <hr>
             <table>
         @foreach($schemes as $scheme)  
           <tr>
@@ -25,8 +26,9 @@
       <center><a href="{{route('schemes.index')}}">View All</a></center>
     </div>
 
-    <div class="box"  style="height:320px;">
+    <div class="box"  style="height:500px;">
         <h3>Notices</h3>
+        <hr>
             <table>
 				@foreach($notices as $notice)  
 					<tr>

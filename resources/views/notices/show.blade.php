@@ -4,9 +4,9 @@
 
 <div class="line">
 	<div class="margin">
-		<div class="s-12 m-7 l-8 margin-bottom"  style="height:640px;">
-            <div class="box"  style="height:640px;">
-          		<h2>{{$notice->notice_title}}</h3>
+		<div class="s-12 m-7 l-8 margin-bottom"  style="height:1000px;">
+            <div class="box"  style="height:1000px;">
+          		<h2>{{$notice->notice_title}}</h2>
           			<small>Posted On: {{$notice->created_at}}</small>
           		<hr>
 

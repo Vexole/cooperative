@@ -8,6 +8,8 @@ use Session;
 
 use App\Menu;
 
+use App\Category;
+
 class MenuController extends Controller
 {
 
@@ -45,12 +47,21 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'menu_name' => "required|min:3|unique:menus,menu_name"
+            'menu_name' => "required|min:3|unique:menus,menu_name",
+            'body_up' => "required",
+            'body_down' => "required"
             ]);
 
         $menu = new Menu;
         $menu->menu_name = $request->menu_name;
         $menu->save();
+
+        $category = new Category;
+        $category->title = $request->menu_name;
+        $category->body_up = $request->body_up;
+        $category->body_down = $request->body_down;
+        $category->sub = 0;
+        $category->save();
 
         Session::flash('success', 'Menu successfully added!');
         return redirect()->route('menus.index');
@@ -89,19 +100,22 @@ class MenuController extends Controller
     public function update(Request $request, $id)
     {
         $menu = Menu::find($id);
-       if(($request->input('menu_name') == $menu->menu_name)){
+        $category = Category::where('title', $menu->menu_name)->take(1)->get();
+        if(($request->input('menu_name') == $menu->menu_name)){
             
        }else{
              $this->validate($request, [
                 'menu_name' => "required|min:4|unique:menus,menu_name",
                 ]);
-        }
-            $menu = Menu::find($id);
-            
-            $menu->menu_name = $request->menu_name;
-   
+        }          
 
+            $menu->menu_name = $request->menu_name;
             $menu->save();
+
+            foreach($category as $cat){
+                $cat->title = $request->menu_name;
+                $cat->save();
+            }
 
             Session::flash('success', 'Menu successfully updated!');
             return redirect()->route('menus.index');
@@ -116,7 +130,12 @@ class MenuController extends Controller
     public function destroy($id)
     {
         $menu = Menu::find($id);
+        $category = Category::where('title', $menu->menu_name)->take(1)->get();
         $menu->delete();
+         foreach($category as $cat){
+                $cat->delete();
+            }
+
         Session::flash('success', 'Menu was successfully deleted!');
         return redirect()->route('menus.index');
     }

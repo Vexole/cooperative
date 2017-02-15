@@ -15,13 +15,15 @@ Route::get('/', 'PagesController@getIndex')->name('index');
 Route::get('/contact', 'PagesController@getContact')->name('contact');
 Route::get('/about', 'PagesController@getAbout')->name('about');
 Route::get('/download', 'PagesController@getDownload')->name('download');
+Route::get('/cat/{menu_name?}', 'PagesController@getMenus')->name('cat');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'CategoryController@index');
 
 
 Route::resource('menus', 'MenuController');
+Route::resource('categories', 'CategoryController');
 Route::resource('submenus', 'SubmenuController');
 Route::resource('schemes', 'SchemeController');
 Route::resource('news', 'NewsController');

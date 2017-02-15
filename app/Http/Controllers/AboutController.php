@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Session;
+use Storage;
+
+use App\About;
+
 class AboutController extends Controller
 {
     /**
@@ -11,9 +16,16 @@ class AboutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
-        //
+        $abouts = About::all();
+        return view('/abouts.index')->withAbouts($abouts);
     }
 
     /**
@@ -23,7 +35,7 @@ class AboutController extends Controller
      */
     public function create()
     {
-        //
+        return view('/abouts.create');
     }
 
     /**
@@ -34,7 +46,26 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          $this->validate($request, [
+            'file' => 'required',
+            'description' => 'required'
+            ]);
+
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            $fileName = $file->getClientOriginalName();
+            $destinationPath = config('app.imageDestinationPath').'/'.$fileName;
+            $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));
+            if($uploaded){
+                $about = new About;
+                $about->picture_name = $fileName;
+                $about->description = $request->description;
+                $about->save();
+
+                Session::flash('success', "Successfully Uploaded");
+            }
+            return redirect()->route('abouts.index');
+        }
     }
 
     /**
@@ -79,6 +110,10 @@ class AboutController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $about = About::find($id);
+        Storage::delete(config('app.imageDestinationPath').'/'.$about->picture_name);
+        $about->delete();
+        Session::flash('success', 'Successfully Deleted');
+        return redirect()->route('abouts.index');
     }
 }

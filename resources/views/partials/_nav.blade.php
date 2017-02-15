@@ -20,21 +20,23 @@
                      <li><a href="/">{{$menu->menu_name}}</a>
                     @elseif($menu->menu_name == "Contact" || $menu->menu_name == "About" || $menu->menu_name == "News")
                      <li><a href="/{{strtolower($menu->menu_name)}}">{{$menu->menu_name}}</a>
-                    @else
+                    @elseif($menu->menu_name == "Notice" || $menu->menu_name == "Scheme")
                      <li><a href="/{{strtolower($menu->menu_name)}}s">{{$menu->menu_name}}</a>
+                    @else
+                     <li><a href="/cat/{{$menu->menu_name}}">{{$menu->menu_name}}</a>
+                  
                     @endif
 
                     @if(count($menu->submenus))
                        <ul>
                            @foreach($menu->submenus as $submenu)
-                              <li><a href="/{{$submenu->submenu_name}}">{{$submenu->submenu_name}}</a></li>
+                              <li><a href="/cat/{{$submenu->submenu_name}}">{{$submenu->submenu_name}}</a></li>
                            @endforeach
                         </ul>
                     @endif
 
                      </li>
                   @endforeach
-
                   </ul>
                </div>
                <div class="hide-s hide-m l-2">

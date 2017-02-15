@@ -15,6 +15,16 @@
 
 				<br>
 
+				{{ Form::label('body_up', "Body Up : ") }}
+				{{	Form::text('body_up', null, ['class' => 'form-control'])	}}
+
+				<br>
+
+				{{ Form::label('body_down', "Body Down : ") }}
+				{{	Form::text('body_down', null, ['class' => 'form-control'])	}}
+
+				<br>
+
 				{{	Form::submit('Add Menu', array('class' => 'btn btn-success btn-lg btn-block'))	}}
 
 

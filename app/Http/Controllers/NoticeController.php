@@ -12,6 +12,7 @@ use App\Scheme;
 use App\Download;
 use App\Quicklink;
 use App\Overall;
+use App\Category;
 
 
 use Illuminate\Support\Facades\Auth;
@@ -32,12 +33,13 @@ class NoticeController extends Controller
         $themes = Theme::all();
         $overalls = Overall::all();
         $menus = Menu::all();
-        $schemes = Scheme::orderBy('id', 'desc')->take(4)->get();
-        $news = News::orderBy('id', 'desc')->take(4)->get();
+        $schemes = Scheme::orderBy('id', 'desc')->take(5)->get();
+        $categories = Category::all();
+        $news = News::orderBy('id', 'desc')->take(5)->get();
 
         if(Auth::guest()){
             $notices = Notice::orderBy('id', 'desc')->paginate(5);
-            return view('/notices.notice')->withOveralls($overalls)->withNotices($notices)->withQuicklinks($quicklinks)->withMenus($menus)->withNews($news)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
+            return view('/notices.notice')->withCategories($categories)->withOveralls($overalls)->withNotices($notices)->withQuicklinks($quicklinks)->withMenus($menus)->withNews($news)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
         }else{
             $notices = Notice::all();
             return view('/notices.index')->withNotices($notices);
@@ -86,15 +88,16 @@ class NoticeController extends Controller
      */
     public function show($id)
     {
-        $quicklinks = Quicklink::orderBy('priority', 'asc')->take(5)->get();;
+        $quicklinks = Quicklink::orderBy('priority', 'asc')->take(5)->get();
         $downloads = Download::orderBy('id','asc')->take(5)->get();
         $themes = Theme::all();
         $overalls = Overall::all();
+        $categories = Category::all();
         $menus = Menu::all();
         $schemes = Scheme::orderBy('id', 'desc')->take(4)->get();
         $news = News::orderBy('id', 'desc')->take(4)->get();
         $notice = Notice::find($id);
-        return view('notices.show')->withOveralls($overalls)->withNotice($notice)->withQuicklinks($quicklinks)->withMenus($menus)->withNews($news)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
+        return view('notices.show')->withCategories($categories)->withOveralls($overalls)->withNotice($notice)->withQuicklinks($quicklinks)->withMenus($menus)->withNews($news)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
     }
 
     /**
