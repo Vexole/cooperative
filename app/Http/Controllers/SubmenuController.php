@@ -63,8 +63,7 @@ class SubmenuController extends Controller
         $this->validate($request,[
             'submenu_name' => 'required|min:3|unique:submenus,submenu_name',
             'menu_name' => 'required',
-            'body_up' => "required",
-            'body_down' => "required"
+            'body_up' => "required"
             ]);
 
         $queryMenus = Menu::where('menu_name', $list[$request->menu_name])->get();

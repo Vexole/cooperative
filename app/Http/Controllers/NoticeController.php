@@ -11,6 +11,7 @@ use App\News;
 use App\Scheme;
 use App\Download;
 use App\Quicklink;
+use App\Service;
 use App\Overall;
 use App\Category;
 
@@ -33,13 +34,16 @@ class NoticeController extends Controller
         $themes = Theme::all();
         $overalls = Overall::all();
         $menus = Menu::all();
+        $loans = Scheme::where('service_id',1)->get(); 
+        $savings = Scheme::where('service_id',2)->get();
+        $services = Service::all();
         $schemes = Scheme::orderBy('id', 'desc')->take(5)->get();
         $categories = Category::all();
         $news = News::orderBy('id', 'desc')->take(5)->get();
 
         if(Auth::guest()){
             $notices = Notice::orderBy('id', 'desc')->paginate(5);
-            return view('/notices.notice')->withCategories($categories)->withOveralls($overalls)->withNotices($notices)->withQuicklinks($quicklinks)->withMenus($menus)->withNews($news)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
+            return view('/notices.notice')->withLoans($loans)->withSavings($savings)->withservices($services)->withCategories($categories)->withOveralls($overalls)->withNotices($notices)->withQuicklinks($quicklinks)->withMenus($menus)->withNews($news)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
         }else{
             $notices = Notice::all();
             return view('/notices.index')->withNotices($notices);
@@ -93,11 +97,14 @@ class NoticeController extends Controller
         $themes = Theme::all();
         $overalls = Overall::all();
         $categories = Category::all();
+        $services = Service::all();
         $menus = Menu::all();
+        $loans = Scheme::where('service_id',1)->get(); 
+        $savings = Scheme::where('service_id',2)->get();
         $schemes = Scheme::orderBy('id', 'desc')->take(4)->get();
         $news = News::orderBy('id', 'desc')->take(4)->get();
         $notice = Notice::find($id);
-        return view('notices.show')->withCategories($categories)->withOveralls($overalls)->withNotice($notice)->withQuicklinks($quicklinks)->withMenus($menus)->withNews($news)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
+        return view('notices.show')->withLoans($loans)->withSavings($savings)->withservices($services)->withCategories($categories)->withOveralls($overalls)->withNotice($notice)->withQuicklinks($quicklinks)->withMenus($menus)->withNews($news)->withThemes($themes)->withSchemes($schemes)->withDownloads($downloads);
     }
 
     /**

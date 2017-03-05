@@ -28,7 +28,7 @@ class SchemeController extends Controller
      */
     public function index()
     {
-        $quicklinks = Quicklink::orderBy('priority', 'asc')->take(5)->get();;
+        $quicklinks = Quicklink::orderBy('priority', 'asc')->take(5)->get();
         $menus = Menu::all();
         $downloads = Download::orderBy('id','asc')->take(5)->get();
         $overalls = Overall::all();
@@ -36,10 +36,12 @@ class SchemeController extends Controller
         $themes = Theme::all();
         $notices = Notice::orderBy('id', 'desc')->take(4)->get();
         $news = News::orderBy('id', 'desc')->take(4)->get();
+        $loans = Scheme::where('service_id',1)->get(); 
+        $savings = Scheme::where('service_id',2)->get();
         $categories = Category::all();
 
         if(Auth::guest()){
-            return view('/schemes.scheme')->withCategories($categories)->withOveralls($overalls)->withNews($news)->withQuicklinks($quicklinks)->withMenus($menus)->withNotices($notices)->withThemes($themes)->withServices($services)->withDownloads($downloads);
+            return view('/schemes.scheme')->withLoans($loans)->withSavings($savings)->withCategories($categories)->withOveralls($overalls)->withNews($news)->withQuicklinks($quicklinks)->withMenus($menus)->withNotices($notices)->withThemes($themes)->withServices($services)->withDownloads($downloads);
         }else{
             $schemes = Scheme::all();
             return view('/schemes.index')->withSchemes($schemes);
@@ -54,7 +56,13 @@ class SchemeController extends Controller
     public function create()
     {
         if(Auth::user()){
-            return view('/schemes.create');
+            $services = Service::all();
+            $i = 0;
+            foreach ($services as $service) {
+                $list[$i] = $service->type;
+                $i++;
+            }
+            return view('/schemes.create')->withList($list);
         }
     }
 
@@ -75,7 +83,9 @@ class SchemeController extends Controller
         $scheme = new Scheme;
         $scheme->interest = $request->interest;
         $scheme->scheme_name = $request->scheme_name;
+        $scheme->service_id = ($request->scheme_id) + 1;
         $scheme->scheme_body = $request->scheme_body;
+        $scheme->home = 0;
     
         $scheme->save();
 
@@ -97,10 +107,13 @@ class SchemeController extends Controller
         $overalls = Overall::all();
         $themes = Theme::all();
         $menus = Menu::all();
+        $services = Service::all();
+        $loans = Scheme::where('service_id',1)->get(); 
+        $savings = Scheme::where('service_id',2)->get();
         $scheme = Scheme::find($id);
         $news = News::orderBy('id', 'desc')->take(4)->get();
         $notices = Notice::orderBy('id', 'desc')->take(4)->get();
-        return view('schemes.show')->withCategories($categories)->withOveralls($overalls)->withNotices($notices)->withMenus($menus)->withQuicklinks($quicklinks)->withNews($news)->withThemes($themes)->withScheme($scheme)->withDownloads($downloads);
+        return view('schemes.show')->withLoans($loans)->withSavings($savings)->withservices($services)->withCategories($categories)->withOveralls($overalls)->withNotices($notices)->withMenus($menus)->withQuicklinks($quicklinks)->withNews($news)->withThemes($themes)->withScheme($scheme)->withDownloads($downloads);
     }
 
     /**

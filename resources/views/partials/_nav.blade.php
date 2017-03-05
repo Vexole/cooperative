@@ -20,12 +20,34 @@
                      <li><a href="/">{{$menu->menu_name}}</a>
                     @elseif($menu->menu_name == "Contact" || $menu->menu_name == "About" || $menu->menu_name == "News")
                      <li><a href="/{{strtolower($menu->menu_name)}}">{{$menu->menu_name}}</a>
-                    @elseif($menu->menu_name == "Notice" || $menu->menu_name == "Scheme")
+                    @elseif($menu->menu_name == "Notice")
                      <li><a href="/{{strtolower($menu->menu_name)}}s">{{$menu->menu_name}}</a>
-                    @else
+                   
+                      <!-- This is to check if the menu is scheme. If scheme, then get the type of services the commpany provide-->
+                    @elseif($menu->menu_name == "Scheme")
+                      @foreach($services as $service)
+                       <li><a href="#">{{$service->type}}</a>
+                          @if($service->type == "Loan")
+                              <ul>
+                              @foreach($loans as $loan)
+                                 <li><a href="/schemes/{{$loan->id}}">{{$loan->scheme_name}}</a></li>
+                              @endforeach
+                            </ul>
+                            @elseif($service->type == "Saving")
+                              <ul>
+                              @foreach($savings as $saving)
+                                 <li><a href="/schemes/{{$saving->id}}">{{$saving->scheme_name}}</a></li>
+                              @endforeach
+                            </ul>
+                          @endif
+                       </li>
+                      @endforeach
+                   
+                    @else                  
+                   <!-- This is for the newly added menus-->
                      <li><a href="/cat/{{$menu->menu_name}}">{{$menu->menu_name}}</a>
-                  
                     @endif
+
 
                     @if(count($menu->submenus))
                        <ul>

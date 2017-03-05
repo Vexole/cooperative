@@ -96,7 +96,7 @@ class CategoryController extends Controller
 
         }else if($request->input('body_up') == $category->body_up){
             $this->validate($request, [
-                'body_down' => "required"
+               
                 ]);
         }else if($request->input('body_down') == $category->body_down){
             $this->validate($request, [
@@ -104,8 +104,7 @@ class CategoryController extends Controller
                 ]);
         }else{
              $this->validate($request, [
-                'body_up' => "required",
-                'body_down' => "required",
+                'body_up' => "required"
                 ]);
         }
 

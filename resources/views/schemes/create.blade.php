@@ -10,6 +10,12 @@
 
 				{!! Form::open(['route' => 'schemes.store']) !!}
     
+				{{ Form::label('service_id', "Type : ") }}
+				{{ Form::select('service_id', $list), ['class' => 'form-control'] }}
+				
+				<br>
+				<br>
+
 				{{ Form::label('scheme_name', "Title : ") }}
 				{{	Form::text('scheme_name', null, ['class' => 'form-control'])	}}
 
